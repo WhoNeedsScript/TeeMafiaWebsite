@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true" style="width:100%;height:100%">
+            
+            <p:layoutUnit position="west" resizable="true">
+                <h:form>
+                    <p:panelMenu style="width:300px">
+                        <p:submenu label="Baupläne" class="active-menuitem">
+                            <p:menuitem value="Speichern" url = "blueprint/save.xhtml"/>
+                            <p:menuitem value="Ändern" />
+                            <p:menuitem value="Löschen" url = "blueprint/delete.xhtml"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+               
+                <h:form>
+                    <p:panelGrid columns="1">
+                        <p:dataTable id ="BlueprintList" value="#{Blueprints.blueprints}" 
+                 var="blueprint" 
+                 rowKey="#{blueprint.name}"  
+  
+                 rowExpandMode="single">
+  
+        <p:column style="width:16px">
+            <p:rowToggler  />
+        </p:column>
+        <p:column headerText="Name">
+            #{blueprint.name}
+        </p:column>
+
+        <p:rowExpansion>
+            <p:dataTable value="#{blueprint.parts}" var="part" >
+              
+                <p:column headerText="Name">
+                    #{part.name}
+                </p:column>
+                <p:column headerText="Amount">
+                    #{part.amount}
+                </p:column>
+
+            </p:dataTable>
+        </p:rowExpansion>
+
+    </p:dataTable>
+                         <f:facet name="footer">
+                            <p:commandButton value="Blueprint Speichern" action="#{Blueprints.saveBlueprint()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                
+            </p:layoutUnit>
+        </p:layout>  
+    </h:body>
+</html>

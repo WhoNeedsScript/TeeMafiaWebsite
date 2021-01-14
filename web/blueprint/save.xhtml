@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true" style="width:100%;height:100%">
+            
+            <p:layoutUnit position="west" resizable="true">
+                <h:form>
+                    <p:panelMenu style="width:300px">
+                        <p:submenu label="Baupläne" class="active-menuitem">
+                            <p:menuitem value="Speichern" url = "blueprint/save.xhtml"/>
+                            <p:menuitem value="Ändern" />
+                            <p:menuitem value="Löschen" url = "blueprint/delete.xhtml"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+               
+                <h:form>
+                    <p:panelGrid columns="2" style="width: 100%">
+                        <f:facet name="header">Blaupause Hinzufügen</f:facet>
+                        <h:outputText value="Name"/>
+                        <p:inputText value="#{BlueprintSaveView.blueprintName}"/>
+                        <f:facet name="s"><p:separator/></f:facet>
+                        <p:outputLabel value="Ressource " />
+                        <p:selectOneMenu id="ressource" value="#{BlueprintSaveView.partName}"  style="width: 30%">
+                            <f:selectItems value="#{BlueprintSaveView.dropDownPartname}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Anzahl"/>
+                        <h:panelGroup>
+                            <p:inputText value="#{BlueprintSaveView.partAmount}"/>
+                            <p:commandButton value="Hinzufügen" action="#{BlueprintSaveView.addPart()}" style="left: 5%" ajax="true" update="WapeonPartsList"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1">
+                        <p:dataTable id ="WapeonPartsList" value="#{Blueprints.parts}" var="part">
+                            <p:column headerText="Name">
+                                <p:outputLabel value="#{part.name}"/>
+                            </p:column>
+                            <p:column headerText="Anzahl">
+                                <p:outputLabel value="#{part.amount}"/>
+                            </p:column>
+                        </p:dataTable>
+                         <f:facet name="footer">
+                            <p:commandButton value="Blueprint Speichern" action="#{BlueprintsController.saveBlueprint(BlueprintSaveView.blueprintName,BlueprintSaveView.parts)}">
+                                <f:actionListener binding="#{BlueprintSaveView.deleteAllParts()}"/>
+                            <p:commandButton />
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                
+            </p:layoutUnit>
+        </p:layout>  
+    </h:body>
+</html>
