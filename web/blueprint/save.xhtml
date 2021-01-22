@@ -20,9 +20,9 @@ and open the template in the editor.
                 <h:form>
                     <p:panelMenu style="width:300px">
                         <p:submenu label="Baupläne" class="active-menuitem">
-                            <p:menuitem value="Speichern" url = "blueprint/save.xhtml"/>
+                            <p:menuitem value="Speichern" url = "save.xhtml"/>
                             <p:menuitem value="Ändern" />
-                            <p:menuitem value="Löschen" url = "blueprint/delete.xhtml"/>
+                            <p:menuitem value="Löschen" url = "delete.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                 </h:form>
@@ -47,7 +47,7 @@ and open the template in the editor.
                         </h:panelGroup>
                     </p:panelGrid>
                     <p:panelGrid columns="1">
-                        <p:dataTable id ="WapeonPartsList" value="#{Blueprints.parts}" var="part">
+                        <p:dataTable id ="WapeonPartsList" value="#{BlueprintSaveView.parts}" var="part">
                             <p:column headerText="Name">
                                 <p:outputLabel value="#{part.name}"/>
                             </p:column>
@@ -58,7 +58,7 @@ and open the template in the editor.
                          <f:facet name="footer">
                             <p:commandButton value="Blueprint Speichern" action="#{BlueprintsController.saveBlueprint(BlueprintSaveView.blueprintName,BlueprintSaveView.parts)}">
                                 <f:actionListener binding="#{BlueprintSaveView.deleteAllParts()}"/>
-                            <p:commandButton />
+                            </p:commandButton>
                         </f:facet>
                     </p:panelGrid>
                 </h:form>

@@ -5,10 +5,52 @@
  */
 package TeeMafiaWebsite.View;
 
+import TeeMafiaWebsite.Controller.BlueprintController;
+import TeeMafiaWebsite.Database.DatabaseController;
+import TeeMafiaWebsite.Entity.Blueprint;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 /**
  *
  * @author magnu
  */
-public class BlueprintDeleteView {
+@ManagedBean(name = "BlueprintDeleteView")
+@SessionScoped
+
+public class BlueprintDeleteView 
+{
+    List<Blueprint> listBlueprints;
+
+    public List<Blueprint> getListBlueprints() {
+        return listBlueprints;
+    }
+
+    public void setListBlueprints(List<Blueprint> listBlueprints) {
+        this.listBlueprints = listBlueprints;
+    }
+
+    public Blueprint getSelectedBlueprint() {
+        return selectedBlueprint;
+    }
+
+    public void setSelectedBlueprint(Blueprint selectedBlueprint) {
+        this.selectedBlueprint = selectedBlueprint;
+    }
+    Blueprint selectedBlueprint;
+    
+    @PostConstruct
+    public void init()
+    {
+        listBlueprints = DatabaseController.getAllBlueprints();
+    }
+    
+    public void deleteSelectedBlueprint()
+    {
+        listBlueprints.remove(selectedBlueprint);
+    }
+
     
 }

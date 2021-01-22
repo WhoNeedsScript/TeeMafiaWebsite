@@ -216,7 +216,7 @@ public class DatabaseController
         try
         {
             String sql = "delete  tblblueprint,tblblueprintpart"
-                    +    "from tblblueprint"
+                    +    "from tblblueprintpart"
                     +    "inner join tblblueprint ON tblblueprint.id = tblblueprintpart.BlueprintID "
                     +    "where tblblueprint.name = ?";
             

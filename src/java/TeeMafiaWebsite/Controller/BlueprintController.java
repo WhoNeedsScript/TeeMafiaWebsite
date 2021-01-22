@@ -8,10 +8,9 @@ package TeeMafiaWebsite.Controller;
 import TeeMafiaWebsite.Database.DatabaseController;
 import TeeMafiaWebsite.Entity.Blueprint;
 import TeeMafiaWebsite.Entity.Part;
+import TeeMafiaWebsite.View.BlueprintDeleteView;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 /**
@@ -22,15 +21,15 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public  class BlueprintController  implements Serializable{
   
-    public static void delete(String _BlueprintName)
-    {
-        DatabaseController.deleteBlueprint(_BlueprintName);
-    }
-
     
     public static void saveBlueprint(String _BlueprintName,List<Part> _Parts)
     {
         Blueprint blueprint = new Blueprint(_BlueprintName, _Parts);
         DatabaseController.saveBlueprint(blueprint); 
+    }
+    
+    public void deleteBlueprint(String _blueprintName)
+    {
+        DatabaseController.deleteBlueprint(_blueprintName);
     }
 }

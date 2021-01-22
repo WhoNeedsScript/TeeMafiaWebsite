@@ -13,6 +13,7 @@ and open the template in the editor.
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
     </h:head>
     <h:body>
         <p:layout fullPage="true" style="width:100%;height:100%">
@@ -21,9 +22,9 @@ and open the template in the editor.
                 <h:form>
                     <p:panelMenu style="width:300px">
                         <p:submenu label="Baupläne" class="active-menuitem">
-                            <p:menuitem value="Speichern" url = "blueprint/save.xhtml"/>
+                            <p:menuitem value="Speichern" url = "save.xhtml"/>
                             <p:menuitem value="Ändern" />
-                            <p:menuitem value="Löschen" url = "blueprint/delete.xhtml"/>
+                            <p:menuitem value="Löschen" url = "delete.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                 </h:form>
@@ -33,35 +34,22 @@ and open the template in the editor.
                
                 <h:form>
                     <p:panelGrid columns="1">
-                        <p:dataTable id ="BlueprintList" value="#{Blueprints.blueprints}" 
-                 var="blueprint" 
-                 rowKey="#{blueprint.name}"  
-  
-                 rowExpandMode="single">
-  
-        <p:column style="width:16px">
-            <p:rowToggler  />
-        </p:column>
-        <p:column headerText="Name">
-            #{blueprint.name}
-        </p:column>
-
-        <p:rowExpansion>
-            <p:dataTable value="#{blueprint.parts}" var="part" >
-              
-                <p:column headerText="Name">
-                    #{part.name}
-                </p:column>
-                <p:column headerText="Amount">
-                    #{part.amount}
-                </p:column>
-
-            </p:dataTable>
-        </p:rowExpansion>
-
-    </p:dataTable>
-                         <f:facet name="footer">
-                            <p:commandButton value="Blueprint Speichern" action="#{Blueprints.saveBlueprint()}"/>
+                        <p:dataTable 
+                            id ="BlueprintList" 
+                            var="blueprints" 
+                            value="#{BlueprintDeleteView.listBlueprints}"
+                            rowKey="#{blueprints.name}" selection="#{BlueprintDeleteView.selectedBlueprint}" selectionMode="single">
+                                
+                            <p:column headerText="Name">
+                                #{blueprints.name}
+                            </p:column>
+                            
+                        </p:dataTable>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="Blueprint Löschen" action="#{BlueprintsController.deleteBlueprint(selectedBlueprint.name)}">
+                                <f:actionListener binding="#{BlueprintDeleteView.deleteSelectedBlueprint()}"/>
+                            </p:commandButton>
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
